@@ -1,6 +1,6 @@
 
 module.exports = {
     Query: {
-        helo: () => 'world'
+        foo: () => 'bar'
     }
 }
