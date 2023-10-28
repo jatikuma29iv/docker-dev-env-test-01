@@ -1,0 +1,17 @@
+version: "3.0"
+
+services:
+
+  # micro-service hello
+  ms-helo:
+    build:
+      target: development
+    volumes:
+      - .:/workspace:cached
+
+  # micro-service foo
+  ms-foo:
+    build:
+      target: development
+    volumes:
+      - .:/workspace:cached

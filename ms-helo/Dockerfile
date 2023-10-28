@@ -22,17 +22,13 @@ CMD ts-node server.ts
 
 
 # stage development
-FROM base as development
+FROM mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye as development
 
 RUN npm i -g nodemon ts-node typescript
 
-WORKDIR /app
-
-COPY package.json yarn.lock .
+WORKDIR /workspace/ms-helo
 
 RUN yarn
-
-COPY . .
 
 CMD nodemon
 
