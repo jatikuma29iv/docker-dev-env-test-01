@@ -53,5 +53,5 @@ services:
       source: /var/run/docker.sock
       target: /var/run/docker.sock
     - .:/workspace:cached
-    - ./ms-foo/node_modules/workspace/ms-foo/node_modules:cached
+    - ./ms-foo/node_modules:/workspace/ms-foo/node_modules:cached
 
