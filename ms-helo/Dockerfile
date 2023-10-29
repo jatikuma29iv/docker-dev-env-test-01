@@ -22,17 +22,8 @@ CMD ts-node server.ts
 
 
 # stage development
-FROM base as development
+FROM prod as development
 
-RUN npm i -g nodemon ts-node typescript
-
-WORKDIR /app
-
-COPY package.json yarn.lock .
-
-RUN yarn
-
-COPY . .
+RUN npm i -g nodemon
 
 CMD nodemon
-

@@ -19,9 +19,12 @@ services:
   ms-helo:
     build:
       context: ./ms-helo
-      target: prod
+      target: development
     ports:
       - 4001:4001
+    volumes:
+      - ./ms-helo:/app
+      - /app/node_modules
     restart: unless-stopped
     healthcheck:
       test: 'curl localhost:4001/live'
@@ -33,9 +36,12 @@ services:
   ms-foo:
     build:
       context: ./ms-foo
-      target: prod
+      target: development
     ports:
       - 4002:4002
+    volumes:
+      - ./ms-foo:/app
+      - /app/node_modules
     restart: unless-stopped
     healthcheck:
       test: 'curl localhost:4002/live'
