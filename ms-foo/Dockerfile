@@ -27,3 +27,23 @@ FROM prod as development
 RUN npm i -g nodemon
 
 CMD nodemon
+
+
+FROM development AS dev-env
+
+RUN <<EOF
+apt-get install git -y
+EOF
+
+RUN <<EOF
+# for alpine
+#addgroup -S docker
+#adduser -S --shell /bin/bash --ingroup docker vscode
+
+# for ubuntu
+groupadd docker
+useradd -m -s /bin/bash -g docker vscode
+EOF
+
+# install Docker tools (cli, buildx, compose)
+COPY --from=gloursdocker/docker / /

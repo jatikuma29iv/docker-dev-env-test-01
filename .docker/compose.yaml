@@ -1,0 +1,49 @@
+version: "3.0"
+
+services:
+
+  # micro-service gateway
+  gateway:
+    build:
+      context: ./gateway
+    ports:
+      - 4000:4000
+    restart: unless-stopped
+    depends_on:
+      ms-helo:
+        condition: service_healthy
+      ms-foo:
+        condition: service_healthy
+
+  # micro-service hello
+  ms-helo:
+    build:
+      context: ./ms-helo
+      target: dev-env
+    ports:
+      - 4001:4001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    healthcheck:
+      test: 'curl localhost:4001/live'
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  # micro-service foo
+  ms-foo:
+    build:
+      context: ./ms-foo
+      target: dev-env
+    ports:
+      - 4002:4002
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    healthcheck:
+      test: 'curl localhost:4002/live'
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
