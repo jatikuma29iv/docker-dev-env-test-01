@@ -33,7 +33,6 @@ services:
       source: /var/run/docker.sock
       target: /var/run/docker.sock
     - .:/workspace:cached
-    - /workspace/ms-helo/node_modules
 
   # micro-service foo
   ms-foo:
@@ -53,5 +52,4 @@ services:
       source: /var/run/docker.sock
       target: /var/run/docker.sock
     - .:/workspace:cached
-    - /workspace/ms-foo/node_modules
 

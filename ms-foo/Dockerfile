@@ -43,7 +43,5 @@ RUN npm i -g nodemon ts-node typescript
 
 WORKDIR /workspace/ms-foo
 
-RUN yarn
-
-CMD nodemon
+CMD yarn && nodemon
 

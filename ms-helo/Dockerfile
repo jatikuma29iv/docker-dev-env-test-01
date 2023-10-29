@@ -45,5 +45,5 @@ WORKDIR /workspace/ms-helo
 
 RUN yarn
 
-CMD nodemon
+CMD yarn && nodemon
 
