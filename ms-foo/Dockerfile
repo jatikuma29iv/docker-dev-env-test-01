@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install curl -y
 
 
-# stage development
+# stage prod
 FROM base as prod
 
 RUN npm i -g ts-node typescript
@@ -22,11 +22,13 @@ CMD ts-node server.ts
 
 
 # stage development
-FROM prod as development
+FROM base as development
 
-RUN npm i -g nodemon
+WORKDIR /workspace/ms-foo
 
-CMD nodemon
+RUN npm i -g nodemon ts-node typescript
+
+CMD yarn && nodemon
 
 
 FROM development AS dev-env

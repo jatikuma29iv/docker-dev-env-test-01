@@ -22,11 +22,13 @@ CMD ts-node server.ts
 
 
 # stage development
-FROM prod as development
+FROM base as development
 
-RUN npm i -g nodemon
+WORKDIR /workspace/ms-helo
 
-CMD nodemon
+RUN npm i -g nodemon ts-node typescript
+
+CMD yarn && nodemon
 
 
 FROM development AS dev-env
