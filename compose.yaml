@@ -19,7 +19,7 @@ services:
   ms-helo:
     build:
       context: ./ms-helo
-      target: development
+      #target: development
     ports:
       - 4001:4001
     volumes:
@@ -36,7 +36,7 @@ services:
   ms-foo:
     build:
       context: ./ms-foo
-      target: development
+      #target: development
     ports:
       - 4002:4002
     volumes:

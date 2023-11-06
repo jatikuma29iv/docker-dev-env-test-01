@@ -5,22 +5,6 @@ RUN apt-get update && \
     apt-get install curl -y
 
 
-# stage prod
-FROM base as prod
-
-RUN npm i -g ts-node typescript
-
-WORKDIR /app
-
-COPY package.json yarn.lock .
-
-RUN yarn
-
-COPY . .
-
-CMD ts-node server.ts
-
-
 # stage development
 FROM base as development
 
@@ -49,3 +33,19 @@ EOF
 
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
+
+
+# stage prod
+FROM base
+
+RUN npm i -g ts-node typescript
+
+WORKDIR /app
+
+COPY package.json yarn.lock .
+
+RUN yarn
+
+COPY . .
+
+CMD ts-node src/server.ts

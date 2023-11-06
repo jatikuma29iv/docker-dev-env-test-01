@@ -5,7 +5,8 @@ import { schema } from './schema'
 // Create a Yoga instance with a GraphQL schema.
 const yoga = createYoga({
   schema,
-  healthCheckEndpoint: '/live'
+  healthCheckEndpoint: '/live',
+  logging: 'info'
 })
 
 // Pass it into a server to hook into request handlers.
