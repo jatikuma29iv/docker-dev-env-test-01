@@ -5,8 +5,38 @@ RUN apt-get update && \
     apt-get install curl -y
 
 
+# stage development
+FROM base as development
+
+WORKDIR /workspace/ms-foo
+
+RUN npm i -g nodemon ts-node typescript
+
+CMD yarn && nodemon
+
+
+FROM development AS dev-env
+
+RUN <<EOF
+apt-get install git -y
+EOF
+
+RUN <<EOF
+# for alpine
+#addgroup -S docker
+#adduser -S --shell /bin/bash --ingroup docker vscode
+
+# for ubuntu
+groupadd docker
+useradd -m -s /bin/bash -g docker vscode
+EOF
+
+# install Docker tools (cli, buildx, compose)
+COPY --from=gloursdocker/docker / /
+
+
 # stage prod
-FROM base as prod
+FROM base
 
 RUN npm i -g ts-node typescript
 
@@ -18,17 +48,4 @@ RUN yarn
 
 COPY . .
 
-CMD ts-node server.ts
-
-
-# stage development
-FROM mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye as development
-
-RUN npm i -g nodemon ts-node typescript
-
-WORKDIR /workspace/ms-foo
-
-RUN yarn
-
-CMD nodemon
-
+CMD ts-node src/server.ts
