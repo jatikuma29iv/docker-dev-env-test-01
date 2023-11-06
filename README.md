@@ -12,3 +12,6 @@ You can open this sample in the Dev Environments feature of Docker Desktop versi
 docker dev environment nodejs graphql-yoga apollo-graphql-federation
 
 
+### running with `OrbStack`
+[click here](./docs/orbstack.README.md) for steps.
+
